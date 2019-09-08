@@ -33,7 +33,7 @@ class Board extends React.Component{
     };
 
     return createTable();
-  };
+  }
 }
 
 export default Board;
