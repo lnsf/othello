@@ -3,7 +3,7 @@ body{
 }
 
 table.othello-board{
-  margin: 80px auto;
+  margin: 20px auto;
   background: #1B5E20;
   border: 10px solid #000000;
   border-collapse: collapse;
