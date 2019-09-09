@@ -33,3 +33,23 @@ td.othello-board{
 .green{
   background: #1B5E20;
 }
+
+.horizontal{
+  display: flex;
+  justify-content: center;
+}
+
+.status-inner{
+  padding: 0px 20px 0;
+  border: 2px solid black;
+}
+
+#status-black{
+  background:black;
+  color: white;
+}
+
+#status-white{
+  background: white;
+  color: black;
+}
