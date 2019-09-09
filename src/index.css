@@ -3,6 +3,9 @@ body{
 }
 
 table.othello-board{
+  width: 80vmin;
+  height: 80vmin;
+  padding-top: 100%;
   margin: 20px auto;
   background: #1B5E20;
   border: 10px solid #000000;
@@ -10,14 +13,14 @@ table.othello-board{
 }
 
 td.othello-board{
-  width: 70px;
-  height: 70px;
+  width: 10%;
+  height: auto;
   border: 2px solid #000000;
 }
 
 .stone{
-  width: 60px;
-  height: 60px;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
   display: inline-block;
 }
@@ -35,8 +38,8 @@ td.othello-board{
 }
 
 .placeable{
-  width: 20px;
-  height: 20px;
+  width: 30%;
+  height: 30%;
   background: red;
 }
 
@@ -46,7 +49,7 @@ td.othello-board{
 }
 
 .status-inner{
-  padding: 0px 20px 0;
+  padding: 0px 20px 0px;
   border: 2px solid black;
 }
 
