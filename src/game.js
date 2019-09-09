@@ -19,11 +19,11 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
+    if(this.state.values[i] != 0) return;
+
     const reversible = this.findReversible(i);
 
-    if (reversible.length === 0) {
-      return;
-    }
+    if (reversible.length === 0) return;
 
     let next = this.state;
     next.values[i] = this.state.blackIsNext ? 1 : -1;
