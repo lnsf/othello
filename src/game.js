@@ -16,10 +16,15 @@ class Game extends React.Component {
     this.state.values[calcIdx(4, 4)] = 1;
     this.state.values[calcIdx(3, 4)] = -1;
     this.state.values[calcIdx(4, 3)] = -1;
+
+    this.state.values[calcIdx(2, 4)] = 2;
+    this.state.values[calcIdx(3, 5)] = 2;
+    this.state.values[calcIdx(4, 2)] = 2;
+    this.state.values[calcIdx(5, 3)] = 2;
   }
 
   handleClick(i) {
-    if(this.state.values[i] !== 0) return;
+    if(this.state.values[i] !== 2) return;
 
     const reversible = this.findReversible(i);
 
@@ -36,7 +41,16 @@ class Game extends React.Component {
     next.black = this.count(1);
     next.white = this.count(-1);
 
-    this.setState(next);
+    for(let i = 0; i < 64; i++){
+      if(this.state.values[i] === 1 || this.state.values[i] === -1)
+        next.values[i] = this.state.values[i];
+      else if(this.findReversible(i).length >= 1)
+        next.values[i] = 2;
+      else
+        next.values[i] = 0;
+    };
+
+    this.setState(this.state);
   }
 
   findReversible(i) {
@@ -58,6 +72,7 @@ class Game extends React.Component {
       let reversibleInLine = [calcIdx(nextR, nextC)];
       if (!isRange(nextR) || !isRange(nextC) ||
         this.state.values[calcIdx(nextR, nextC)] === 0 ||
+        this.state.values[calcIdx(nextR, nextC)] === 2 ||
         this.state.values[calcIdx(nextR, nextC)] === (this.state.blackIsNext ? 1 : -1)) {
         return;
       }
@@ -65,6 +80,10 @@ class Game extends React.Component {
       nextR += nr;
       nextC += nc;
       while (isRange(nextR) && isRange(nextC)) {
+        if(this.state.values[calcIdx(nextR, nextC)] === 0 ||
+           this.state.values[calcIdx(nextR, nextC)] === 2){
+             return;
+        }
         if (this.state.values[calcIdx(nextR, nextC)] === (this.state.blackIsNext ? 1 : -1)) {
           reversible = reversible.concat(reversibleInLine);
           return;
