@@ -32,7 +32,11 @@ class Board extends React.Component{
       return table;
     };
 
-    return createTable();
+    return (
+      <table className="othello-board">
+        {createTable()}
+      </table>
+    );
   }
 }
 

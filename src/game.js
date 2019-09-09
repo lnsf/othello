@@ -75,12 +75,12 @@ class Game extends React.Component {
 
   render() {
     return (
-      <table className="othello-board">
+      <div>
         <Board
           values={this.state.values}
           onClick={(i) => this.handleClick(i)}
         />
-      </table>
+      </div>
     );
   }
 }
