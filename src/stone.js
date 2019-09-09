@@ -9,6 +9,9 @@ function Stone(props) {
     case -1:
       stone = (<div className="stone white" />);
       break;
+    case 2:
+      stone = (<div className="stone placeable" />);
+      break;
     default:
       stone = (<div className="stone green" />);
       break;

@@ -34,6 +34,12 @@ td.othello-board{
   background: #1B5E20;
 }
 
+.placeable{
+  width: 20px;
+  height: 20px;
+  background: red;
+}
+
 .horizontal{
   display: flex;
   justify-content: center;
