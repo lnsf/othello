@@ -19,7 +19,7 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
-    if(this.state.values[i] != 0) return;
+    if(this.state.values[i] !== 0) return;
 
     const reversible = this.findReversible(i);
 
