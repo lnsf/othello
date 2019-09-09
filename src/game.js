@@ -18,18 +18,18 @@ class Game extends React.Component {
 
   handleClick(i) {
     const reversible = this.findReversible(i);
-    
-    if(reversible.length === 0){
+
+    if (reversible.length === 0) {
       return;
     }
-    
+
     let next = this.state;
     next.values[i] = this.state.blackIsNext ? 1 : -1;
 
     reversible.forEach((r) => {
       next.values[r] = this.state.blackIsNext ? 1 : -1;
     });
-    
+
     next.blackIsNext = !this.state.blackIsNext;
     this.setState(next);
   }
@@ -48,19 +48,19 @@ class Game extends React.Component {
     ].forEach(([nr, nc]) => {
       const isRange = (i) => (0 <= i && i < 8);
 
-      let[r, c] = calcRC(i);
+      let [r, c] = calcRC(i);
       let [nextR, nextC] = [r + nr, c + nc];
       let reversibleInLine = [calcIdx(nextR, nextC)];
       if (!isRange(nextR) || !isRange(nextC) ||
-         this.state.values[calcIdx(nextR, nextC)] === 0 || 
-         this.state.values[calcIdx(nextR, nextC)] === (this.state.blackIsNext ? 1 : -1)){
+        this.state.values[calcIdx(nextR, nextC)] === 0 ||
+        this.state.values[calcIdx(nextR, nextC)] === (this.state.blackIsNext ? 1 : -1)) {
         return;
       }
 
       nextR += nr;
       nextC += nc;
       while (isRange(nextR) && isRange(nextC)) {
-        if(this.state.values[calcIdx(nextR, nextC)] === (this.state.blackIsNext ? 1 : -1)){
+        if (this.state.values[calcIdx(nextR, nextC)] === (this.state.blackIsNext ? 1 : -1)) {
           reversible = reversible.concat(reversibleInLine);
           return;
         }
@@ -89,7 +89,7 @@ function calcIdx(row, col) {
   return 8 * row + col;
 }
 
-function calcRC(idx){
+function calcRC(idx) {
   return [Math.floor(idx / 8), idx % 8];
 }
 
