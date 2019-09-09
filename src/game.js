@@ -111,12 +111,12 @@ class Game extends React.Component {
     return (
       <div>
         <div className="horizontal">
-          <div class="status-inner" id="status-black">
+          <div className="status-inner" id="status-black">
             <h2>Black</h2>
             <h3>{this.state.black}</h3>
             <h3>{this.state.blackIsNext ? "TURN" : ""}</h3>
           </div>
-          <div class="status-inner" id="status-white">
+          <div className="status-inner" id="status-white">
             <h2>White</h2>
             <h3>{this.state.white}</h3>
             <h3>{this.state.blackIsNext ? "" : "TURN"}</h3>
