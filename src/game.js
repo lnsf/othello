@@ -9,7 +9,9 @@ class Game extends React.Component {
       values: Array(64).fill(0),
       blackIsNext: true,
       black: 2,
-      white: 2
+      white: 2,
+      skipped: false,
+      finished: false
     };
 
     this.state.values[calcIdx(3, 3)] = 1;
@@ -40,6 +42,7 @@ class Game extends React.Component {
 
     next.black = this.count(1);
     next.white = this.count(-1);
+    next.skipped = false;
 
     for(let i = 0; i < 64; i++){
       if(this.state.values[i] === 1 || this.state.values[i] === -1)
@@ -51,6 +54,26 @@ class Game extends React.Component {
     };
 
     this.setState(next);
+
+    if (!this.state.values.includes(2)) {
+      let next = this.state;
+      next.blackIsNext = !next.blackIsNext;
+      for (let i = 0; i < 64; i++) {
+        if (this.state.values[i] === 1 || this.state.values[i] === -1)
+          next.values[i] = this.state.values[i];
+        else if (this.findReversible(i).length >= 1)
+          next.values[i] = 2;
+        else
+          next.values[i] = 0;
+      };
+
+      if (!next.values.includes(2))
+        next.finished = true;
+      else
+        next.skipped = true;
+
+      this.setState(next);
+    }
   }
 
   findReversible(i) {
