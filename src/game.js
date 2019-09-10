@@ -50,7 +50,7 @@ class Game extends React.Component {
         next.values[i] = 0;
     };
 
-    this.setState(this.state);
+    this.setState(next);
   }
 
   findReversible(i) {
