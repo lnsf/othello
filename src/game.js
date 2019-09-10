@@ -130,6 +130,29 @@ class Game extends React.Component {
     return last - first + 1;
   }
 
+  componentDidUpdate(){
+    if(this.state.finished){  
+      setTimeout(() => {
+        let winner;
+        if(this.state.black > this.state.white)
+          winner = "Black";
+        else if(this.state.black < this.state.white)
+          winner = "White";
+        else
+          winner = null;
+
+        winner ? alert("Winner is " + winner) :
+                 alert("Draw")
+      }, 1);
+    }
+    else if(this.state.skipped){
+      setTimeout(() => {
+        alert("Skip\n" + 
+              "Next turn is " + (this.state.blackIsNext ? "Black" : "White"));
+      }, 1);
+    }
+  }
+
   render() {
     return (
       <div>
