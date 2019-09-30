@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './board';
+import COMPlayer from './complayer';
 
 class Game extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class Game extends React.Component {
       black: 2,
       white: 2,
       skipped: false,
-      finished: false
+      finished: false,
+      comPlayer: null
     };
 
     this.state.values[calcIdx(3, 3)] = 1;
@@ -26,6 +28,12 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
+    if (this.state.comPlayer !== null && this.state.blackIsNext === this.state.comPlayer.comTurnIsBlack) return;
+
+    this.reverseStone(i);
+  }
+
+  reverseStone(i) {
     if (this.state.values[i] !== 2) return;
 
     const reversible = this.findReversible(i);
@@ -74,6 +82,35 @@ class Game extends React.Component {
 
       this.setState(next);
     }
+  }
+
+  findPlaceableIndexes(){
+    let indexes = [];
+    for(let i = 0; i < this.state.values.length; i++){
+      if(this.state.values[i] === 2)
+        indexes.push(i);
+    }
+
+    return indexes;
+  }
+
+  handleComPlayerToggle(toggleColorIsBlack){
+    if(this.state.comPlayer === null || this.state.comPlayer.comTurnIsBlack !== toggleColorIsBlack)
+      this.enableComPlayer(toggleColorIsBlack);
+    else
+      this.disableComPlayer();
+  }
+  
+  enableComPlayer(comTurnIsBlack){
+    this.setState({
+      comPlayer: new COMPlayer(comTurnIsBlack)
+    });
+  }
+
+  disableComPlayer(){
+    this.setState({
+      comPlayer: null
+    });
   }
 
   findReversible(i) {
@@ -151,6 +188,13 @@ class Game extends React.Component {
               "Next turn is " + (this.state.blackIsNext ? "Black" : "White"));
       }, 1);
     }
+    else if(this.state.comPlayer !== null && this.state.comPlayer.comTurnIsBlack === this.state.blackIsNext){
+      setTimeout(() => {
+        this.reverseStone(this.state.comPlayer.placeStone(
+          this.findPlaceableIndexes()
+        ));
+      }, 1000);
+    }
   }
 
   render() {
@@ -160,12 +204,18 @@ class Game extends React.Component {
           <div className="status-inner" id="status-black">
             <h2>Black</h2>
             <h3>{this.state.black}</h3>
-            <h3>{this.state.blackIsNext ? "TURN" : ""}</h3>
+            <h3>{this.state.blackIsNext ? "TURN" : "-"}</h3>
+            <button onClick={() => this.handleComPlayerToggle(true)}>
+              {this.state.comPlayer === null || !this.state.comPlayer.comTurnIsBlack ? " " : "COM"}
+            </button>
           </div>
           <div className="status-inner" id="status-white">
             <h2>White</h2>
             <h3>{this.state.white}</h3>
-            <h3>{this.state.blackIsNext ? "" : "TURN"}</h3>
+            <h3>{this.state.blackIsNext ? "-" : "TURN"}</h3>
+            <button onClick={() => this.handleComPlayerToggle(false)}>
+            {this.state.comPlayer === null || this.state.comPlayer.comTurnIsBlack ? " " : "COM"}
+            </button>
           </div>
         </div>
         <Board
